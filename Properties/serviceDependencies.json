@@ -3,6 +3,10 @@
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:Proiect4Context"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:ApplicationDbContextConnection"
     }
   }
 }
