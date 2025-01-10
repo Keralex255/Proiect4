@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Proiect4.Data;
 using Proiect4.Models;
@@ -12,23 +12,39 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Configurare Identity
 builder.Services.AddIdentity<User, IdentityRole<int>>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
-    options.Password.RequireDigit = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 6;
+    options.SignIn.RequireConfirmedAccount = false;  // ✅ Fără confirmare email
+    options.Password.RequireDigit = false;           // ✅ Fără cifre obligatorii
+    options.Password.RequireUppercase = false;       // ✅ Fără majuscule
+    options.Password.RequireNonAlphanumeric = false; // ✅ Fără caractere speciale
+    options.Password.RequiredLength = 6;            // ✅ Parolă minimă de 6 caractere
 })
-.AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
+.AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+
 
 var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// 🔥 Asigură-te că Razor Pages sunt mapate
 app.MapRazorPages();
 
 app.Run();
