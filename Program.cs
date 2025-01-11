@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Proiect4.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,6 +9,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<Proiect4Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Proiect4Context") ?? throw new InvalidOperationException("Connection string 'Proiect4Context' not found.")));
 
+builder.Services.AddDbContext<DbApplicationContext>(options =>
+
+options.UseSqlServer(builder.Configuration.GetConnectionString("Proiect4Context") ?? throw new InvalidOperationException("Connection string 'Proiect4Context' not found.")));
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+options.SignIn.RequireConfirmedAccount = true)
+ .AddEntityFrameworkStores<DbApplicationContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
