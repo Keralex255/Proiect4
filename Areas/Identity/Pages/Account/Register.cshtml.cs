@@ -77,6 +77,9 @@ namespace Proiect4.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
+            [Display(Name = "FullName")]
+            public string FullName{ get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -122,7 +125,7 @@ namespace Proiect4.Areas.Identity.Pages.Account
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user,Input.Password);
             User1.Email = Input.Email;
-            User1.Name = Input.Email;
+            User1.Name = Input.FullName;
             User1.Password = Input.Password;
 
             _context.User.Add(User1);
