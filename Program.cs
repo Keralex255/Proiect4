@@ -29,7 +29,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.Password.RequiredUniqueChars = 0;            
     options.SignIn.RequireConfirmedAccount = true;
 })
- .AddEntityFrameworkStores<DbApplicationContext>();
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<DbApplicationContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
