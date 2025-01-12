@@ -127,6 +127,7 @@ namespace Proiect4.Areas.Identity.Pages.Account
             User1.Email = Input.Email;
             User1.Name = Input.FullName;
             User1.Password = Input.Password;
+            User1.IdentityUserId = user.Id;
 
             _context.User.Add(User1);
             await _context.SaveChangesAsync();
@@ -147,8 +148,8 @@ namespace Proiect4.Areas.Identity.Pages.Account
                         returnUrl = returnUrl
                     },
                     protocol: Request.Scheme);
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",$"Please confirm your account by <a  href = '{HtmlEncoder.Default.Encode(callbackUrl)}' > clicking here </ a >.");
-                if(_userManager.Options.SignIn.RequireConfirmedAccount)
+                await _emailSender.SendEmailAsync(Input.Email, "Confirm your email", $"Please confirm your account by <a  href = '{HtmlEncoder.Default.Encode(callbackUrl)}' > clicking here </ a >.");
+                if (_userManager.Options.SignIn.RequireConfirmedAccount)
                 {
                     return RedirectToPage("RegisterConfirmation", new
                     {
@@ -158,18 +159,9 @@ namespace Proiect4.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    await _signInManager.SignInAsync(user,isPersistent: false);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
-
-            }
-            foreach (var error in result.Errors)
-            {
-                // Logăm eroarea în ModelState pentru afișare în interfață
-                ModelState.AddModelError(string.Empty, error.Description);
-
-                // ✅ Afișăm eroarea în consolă
-                Console.WriteLine($"Eroare: {error.Description}");
             }
 
             return Page();
