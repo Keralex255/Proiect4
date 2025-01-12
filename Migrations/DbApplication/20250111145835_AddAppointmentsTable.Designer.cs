@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Proiect4.Data;
 
@@ -11,9 +12,11 @@ using Proiect4.Data;
 namespace Proiect4.Migrations.DbApplication
 {
     [DbContext(typeof(DbApplicationContext))]
-    partial class DbApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250111145835_AddAppointmentsTable")]
+    partial class AddAppointmentsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -251,7 +254,7 @@ namespace Proiect4.Migrations.DbApplication
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Appointment");
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Proiect4.Models.Doctor", b =>
@@ -276,7 +279,7 @@ namespace Proiect4.Migrations.DbApplication
 
                     b.HasKey("DoctorId");
 
-                    b.ToTable("Doctor");
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Proiect4.Models.Review", b =>
@@ -309,7 +312,7 @@ namespace Proiect4.Migrations.DbApplication
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Review");
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Proiect4.Models.Treatment", b =>
@@ -333,7 +336,7 @@ namespace Proiect4.Migrations.DbApplication
 
                     b.HasKey("TreatmentId");
 
-                    b.ToTable("Treatment");
+                    b.ToTable("Treatments");
                 });
 
             modelBuilder.Entity("Proiect4.Models.User", b =>
@@ -357,7 +360,7 @@ namespace Proiect4.Migrations.DbApplication
 
                     b.HasKey("UserId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

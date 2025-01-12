@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Proiect4.Models;
 
 namespace Proiect4.Data;
 
@@ -9,8 +10,12 @@ public class DbApplicationContext : IdentityDbContext<IdentityUser>
     public DbApplicationContext(DbContextOptions<DbApplicationContext> options)
         : base(options)
     {
-    }
-
+    }  
+    public DbSet<User> User { get; set; }
+    public DbSet<Doctor> Doctor { get; set; }
+    public DbSet<Appointment> Appointment { get; set; }
+    public DbSet<Review> Review { get; set; }
+    public DbSet<Treatment> Treatment { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

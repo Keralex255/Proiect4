@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Proiect4.Data;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +20,15 @@ builder.Services.AddDbContext<DbApplicationContext>(options =>
 
 options.UseSqlServer(builder.Configuration.GetConnectionString("Proiect4Context") ?? throw new InvalidOperationException("Connection string 'Proiect4Context' not found.")));
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-options.SignIn.RequireConfirmedAccount = true)
+{
+    options.Password.RequireDigit = false;               
+    options.Password.RequireLowercase = false;           
+    options.Password.RequireUppercase = false;           
+    options.Password.RequireNonAlphanumeric = false;     
+    options.Password.RequiredLength = 1;                 
+    options.Password.RequiredUniqueChars = 0;            
+    options.SignIn.RequireConfirmedAccount = true;
+})
  .AddEntityFrameworkStores<DbApplicationContext>();
 var app = builder.Build();
 
