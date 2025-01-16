@@ -21,8 +21,8 @@ namespace Proiect4.Pages.Reviews
 
         public IActionResult OnGet()
         {
-        ViewData["DoctorId"] = new SelectList(_context.Doctor, "DoctorId", "DoctorId");
-        ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "UserId");
+        ViewData["DoctorId"] = new SelectList(_context.Doctor, "DoctorId", "Name");
+        ViewData["UserId"] = new SelectList(_context.Set<User>(), "UserId", "Name");
             return Page();
         }
 
